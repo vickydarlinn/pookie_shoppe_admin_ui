@@ -21,7 +21,7 @@ const requestInterceptor = (request: any) => {
 };
 
 const requestErrorInterceptor = (error: AxiosError) => {
-  console.log(error);
+  // console.log(error);
   throw error;
 };
 
@@ -30,7 +30,7 @@ const responseInterceptor = (response: AxiosResponse) => {
 };
 
 const responseErrorInterceptor = (error: AxiosError) => {
-  console.log(error);
+  // console.log(error);
   throw error;
 };
 

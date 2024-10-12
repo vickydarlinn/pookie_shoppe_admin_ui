@@ -1,47 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLoginMutation } from "../../hooks/useLoginMutation";
-import { useSelfQuery } from "../../hooks/userSelfQuery";
-import { usePermission } from "../../hooks/useHasPermission";
-import { useAuthStore } from "../../store";
-import { useLogoutMutation } from "../../hooks/useLogoutMutation";
 
 const LoginPage = () => {
-  const { isAllowed } = usePermission();
-
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
   });
 
-  const {
-    mutate: LoginMutate,
-    isPending,
-    error,
-    isError,
-    isSuccess: isLoginSuccess,
-  } = useLoginMutation();
-  const { mutate: LogoutMutate } = useLogoutMutation();
-  const {
-    refetch: fetchUserInfo,
-    data: userData,
-    isSuccess: isUserInfoFetched,
-  } = useSelfQuery();
-  const { setUser } = useAuthStore();
-
-  useEffect(() => {
-    if (isLoginSuccess) {
-      fetchUserInfo();
-    }
-  }, [isLoginSuccess, fetchUserInfo]);
-
-  useEffect(() => {
-    if (isUserInfoFetched) {
-      if (!isAllowed(userData)) {
-        return LogoutMutate();
-      }
-      setUser(userData);
-    }
-  }, [userData, isUserInfoFetched]);
+  const { mutate: LoginMutate, isPending, error, isError } = useLoginMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

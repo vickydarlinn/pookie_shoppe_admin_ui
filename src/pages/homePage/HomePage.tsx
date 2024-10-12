@@ -1,5 +1,12 @@
+import Breadcrumb from "../../components/breadcrumb";
+
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <div>
+      <Breadcrumb />
+      HomePage
+    </div>
+  );
 };
 
 export default HomePage;

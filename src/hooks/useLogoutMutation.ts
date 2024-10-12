@@ -8,9 +8,8 @@ export const useLogoutMutation = () => {
   return useMutation({
     mutationKey: ["logout"],
     mutationFn: logout,
-    onSuccess: async () => {
+    onSuccess: () => {
       logoutFromStore();
-      return;
     },
   });
 };
