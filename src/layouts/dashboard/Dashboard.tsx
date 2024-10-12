@@ -1,13 +1,18 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuthStore } from "../../store";
 import SideBar from "../../components/sideBar";
 import Header from "../../components/header";
 
 const Dashboard = () => {
+  const location = useLocation();
   const { user } = useAuthStore();
-  console.log(user);
   if (user === null) {
-    return <Navigate to="/auth/login" replace={true} />;
+    return (
+      <Navigate
+        to={`/auth/login?redirect=${location.pathname}`}
+        replace={true}
+      />
+    );
   }
   return (
     <main className="flex">
