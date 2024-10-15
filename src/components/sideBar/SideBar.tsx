@@ -44,11 +44,6 @@ const getNavs = (role: string) => {
     },
 
     {
-      name: "Restaurants",
-      url: "restaurants",
-      icon: <FaHotel />,
-    },
-    {
       name: "Products",
       url: "products",
       icon: <IoRestaurant />,
@@ -61,6 +56,11 @@ const getNavs = (role: string) => {
       name: "Users",
       url: "users",
       icon: <FaUsers />,
+    });
+    menus.splice(2, 0, {
+      name: "Restaurants",
+      url: "restaurants",
+      icon: <FaHotel />,
     });
 
     return menus;

@@ -4,6 +4,11 @@ export interface Restaurant {
   address: string;
 }
 
+export interface CreateRestaurant {
+  name: string;
+  address: string;
+}
+
 export interface User {
   id: number;
   firstName: string;

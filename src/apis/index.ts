@@ -1,4 +1,4 @@
-import { CreateUser, Credentials } from "../types";
+import { CreateRestaurant, CreateUser, Credentials } from "../types";
 import api from "./client";
 
 export const login = async (credentials: Credentials) =>
@@ -12,3 +12,8 @@ export const getAllUsers = () => api.get("/users");
 
 export const createNewUser = (userData: CreateUser) =>
   api.post("/users", userData);
+
+export const getAllRestaurants = () => api.get("/restaurants");
+
+export const createNewRestaurant = (restaurantData: CreateRestaurant) =>
+  api.post("/restaurants", restaurantData);
