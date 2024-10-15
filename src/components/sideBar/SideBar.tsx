@@ -2,35 +2,19 @@ import { FaHotel, FaUsers } from "react-icons/fa";
 import { IoHomeSharp, IoRestaurant } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { useLogoutMutation } from "../../hooks/useLogoutMutation";
+import { useAuthStore } from "../../store";
+import { User } from "../../types";
 
-const navs = [
-  {
-    name: "Home",
-    url: ".",
-    icon: <IoHomeSharp />,
-  },
-  {
-    name: "Users",
-    url: "users",
-    icon: <FaUsers />,
-  },
-  {
-    name: "Restaurants",
-    url: "restaurants",
-    icon: <FaHotel />,
-  },
-  {
-    name: "Products",
-    url: "products",
-    icon: <IoRestaurant />,
-  },
-];
+// const navs = ;
 
 const SideBar = () => {
   const { mutate: logoutMutate } = useLogoutMutation();
   const handleLogout = () => {
     logoutMutate();
   };
+  const { user } = useAuthStore();
+
+  const navs = getNavs((user as User).role);
   return (
     <nav className="min-w-40 h-screen border flex flex-col ">
       <div>Logo</div>
@@ -51,4 +35,37 @@ const SideBar = () => {
   );
 };
 
+const getNavs = (role: string) => {
+  const baseNav = [
+    {
+      name: "Home",
+      url: ".",
+      icon: <IoHomeSharp />,
+    },
+
+    {
+      name: "Restaurants",
+      url: "restaurants",
+      icon: <FaHotel />,
+    },
+    {
+      name: "Products",
+      url: "products",
+      icon: <IoRestaurant />,
+    },
+  ];
+
+  if (role === "admin") {
+    const menus = [...baseNav];
+    menus.splice(1, 0, {
+      name: "Users",
+      url: "users",
+      icon: <FaUsers />,
+    });
+
+    return menus;
+  }
+
+  return baseNav;
+};
 export default SideBar;
