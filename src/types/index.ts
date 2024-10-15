@@ -1,4 +1,4 @@
-export interface Tenant {
+export interface Restaurant {
   id: number;
   name: string;
   address: string;
@@ -10,7 +10,15 @@ export interface User {
   lastName: string;
   email: string;
   role: string;
-  tenant?: Tenant;
+  restaurant?: Restaurant;
+}
+export interface CreateUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  password: string;
+  restaurant?: Restaurant;
 }
 
 export interface AuthState {

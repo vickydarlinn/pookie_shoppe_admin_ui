@@ -1,4 +1,4 @@
-import { Credentials } from "../types";
+import { CreateUser, Credentials } from "../types";
 import api from "./client";
 
 export const login = async (credentials: Credentials) =>
@@ -9,3 +9,6 @@ export const self = () => api.get("/auth/self");
 export const logout = () => api.post("/auth/logout");
 
 export const getAllUsers = () => api.get("/users");
+
+export const createNewUser = (userData: CreateUser) =>
+  api.post("/users", userData);

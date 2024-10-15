@@ -7,7 +7,7 @@ export const useLoginMutation = () => {
   return useMutation({
     mutationKey: ["login"],
     mutationFn: login,
-    onSuccess: async () => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["self"] });
       return;
     },
