@@ -23,7 +23,7 @@ export interface CreateUser {
   email: string;
   role: string;
   password: string;
-  restaurant?: Restaurant;
+  restaurantId?: string;
 }
 
 export interface AuthState {
@@ -35,4 +35,11 @@ export interface AuthState {
 export interface Credentials {
   email: string;
   password: string;
+}
+
+export interface UserQueryParams {
+  items?: number;
+  page?: number;
+  q?: string;
+  role?: string;
 }

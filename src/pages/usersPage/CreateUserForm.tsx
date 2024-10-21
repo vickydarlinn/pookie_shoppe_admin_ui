@@ -1,7 +1,8 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { CreateUser } from "../../types";
+import { CreateUser, Restaurant } from "../../types";
 import { Roles } from "../../utils/constants";
 import { useCreateUserMutation } from "../../hooks/useCreateUserMutate";
+import { useFetchRestaurantsQuery } from "../../hooks/useFetchRestaurantsQuery";
 
 interface CreateUserTableInt {
   onClose: () => void;
@@ -21,7 +22,7 @@ const CreateUserForm = ({ onClose }: CreateUserTableInt) => {
     email: "",
     password: "",
     role: "",
-    restaurant: undefined, // Optional by default
+    restaurantId: undefined,
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -33,22 +34,24 @@ const CreateUserForm = ({ onClose }: CreateUserTableInt) => {
 
     setUserData((prevData) => ({
       ...prevData,
-      [name]: name === "restaurant" ? { name: value } : value,
+      [name]: name === "restaurantId" ? value : value,
     }));
   };
 
+  const { data: restaurantData } = useFetchRestaurantsQuery();
   // Validation before submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const { firstName, lastName, email, password, role, restaurant } = userData;
+    const { firstName, lastName, email, password, role, restaurantId } =
+      userData;
+    console.log("restro Id", restaurantId);
 
     if (!firstName || !lastName || !email || !password || !role) {
       setError("Please fill in all required fields.");
       return;
     }
 
-    if (role === Roles.MANAGER && !restaurant?.name) {
+    if (role === Roles.MANAGER && !restaurantId) {
       setError("Restaurant is required when the role is 'manager'.");
       return;
     }
@@ -124,20 +127,27 @@ const CreateUserForm = ({ onClose }: CreateUserTableInt) => {
         </select>
       </div>
       {userData.role === Roles.MANAGER && (
-        <div>
-          <label>Restaurant</label>
-          <input
-            type="text"
-            name="restaurant"
-            placeholder="Restaurant"
-            value={userData.restaurant?.name || ""}
-            onChange={handleChange}
-          />
-        </div>
+        <select
+          name="restaurantId"
+          value={userData.restaurantId ?? undefined}
+          onChange={handleChange}
+        >
+          <option value="">Select Restaurant</option>
+          {restaurantData?.data?.map((restaurant: Restaurant) => (
+            <option key={restaurant.id} value={restaurant.id}>
+              {restaurant.name}
+            </option>
+          ))}
+        </select>
       )}
-      <button type="submit" disabled={isPending}>
-        {isPending ? "Submitting..." : "Submit"}
-      </button>
+      <div className="mt-auto ">
+        <button type="button" onClick={onClose}>
+          Cancel
+        </button>
+        <button type="submit" disabled={isPending}>
+          {isPending ? "Submitting..." : "Submit"}
+        </button>
+      </div>
     </form>
   );
 };

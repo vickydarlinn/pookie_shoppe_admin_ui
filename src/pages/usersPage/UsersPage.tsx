@@ -4,10 +4,54 @@ import Drawer from "../../components/drawer";
 import { useFetchUsersQuery } from "../../hooks/useFetchUsersQuery";
 import { User } from "../../types";
 import CreateUserForm from "./CreateUserForm";
+import Table from "../../components/table";
+import { useSearchParams } from "react-router-dom";
+import { Roles } from "../../utils/constants";
+
+const columns = [
+  {
+    title: "ID",
+    key: "id",
+    dataIndex: "id",
+  },
+  {
+    title: "Email",
+    key: "email",
+    dataIndex: "email",
+  },
+  {
+    title: "Full Name",
+    key: "fullName",
+    dataIndex: "fullName",
+  },
+  {
+    title: "Role",
+    key: "role",
+    dataIndex: "role",
+  },
+  {
+    title: "Restaurant",
+    key: "restaurant",
+    dataIndex: "restaurantId",
+  },
+];
 
 const UsersPage = () => {
   const [isCreatingNewUser, setIsCreatingNewUser] = useState(false);
-  const { data: users, isPending } = useFetchUsersQuery();
+  const [searchParams] = useSearchParams();
+  const [role, setRole] = useState("");
+  const [query, setQuery] = useState("");
+
+  const items = parseInt(searchParams.get("items") || "5", 10);
+  const page = parseInt(searchParams.get("page") || "1", 10);
+
+  const { data: usersData, isPending } = useFetchUsersQuery({
+    q: query,
+    items,
+    page,
+    role,
+  });
+
   if (isPending) {
     return <div>Loading.....</div>;
   }
@@ -16,7 +60,15 @@ const UsersPage = () => {
     setIsCreatingNewUser(false);
   };
 
-  const cols = ["Id", "Email", "Full Name", "Role"];
+  const data = usersData.data?.map((user: User) => ({
+    role: user.role,
+    id: user.id,
+    key: user.id,
+    email: user.email,
+    fullName: `${user.firstName} ${user.lastName}`,
+    restaurantId: user.restaurant?.id ?? "None",
+  }));
+
   return (
     <>
       <Drawer isOpen={isCreatingNewUser} onClose={handleClose}>
@@ -25,50 +77,37 @@ const UsersPage = () => {
       <div>
         <Breadcrumb />
         <div className="flex justify-between">
-          <h2>Orders</h2>
-          <input type="text" className="border" />
+          <div>
+            <input
+              type="text"
+              className="border p-2"
+              placeholder="Search by email"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <select
+              className="border p-2"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="">Select Role</option>
+              <option value={Roles.ADMIN}>{Roles.ADMIN}</option>
+              <option value={Roles.MANAGER}>{Roles.MANAGER}</option>
+              <option value={Roles.CUSTOMER}>{Roles.CUSTOMER}</option>
+            </select>
+          </div>
           <button onClick={() => setIsCreatingNewUser(true)}>
             + Create User
           </button>
         </div>
-        <table className="w-full border table ">
-          <thead className="border ">
-            <tr>
-              {cols.map((el, i) => (
-                <th
-                  key={el}
-                  className={`px-7 ${
-                    i == cols.length - 1 ? "text-right" : "text-left"
-                  }`}
-                >
-                  {el}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {users?.map((userData: User) => (
-              <tr key={userData.id}>
-                <td className="text-left border w-1/4 px-7">{userData.id}</td>
-                <td className=" border w-1/4 px-7">{userData.email}</td>
-
-                <td className=" border w-1/4 px-7">
-                  {userData.firstName} {userData.lastName}
-                </td>
-                <td className="border w-1/4 text-right px-7">
-                  {userData.role}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="flex gap-1 justify-end px-5">
-          <span>Prev</span>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>Next</span>
-        </div>
+        <div></div>
+        <Table
+          total={usersData.total}
+          page={usersData.page}
+          items={usersData.items}
+          columns={columns}
+          dataSource={data}
+        />
       </div>
     </>
   );

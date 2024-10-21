@@ -7,7 +7,7 @@ import { Restaurant } from "../../types";
 
 const RestaurantPage = () => {
   const [isCreatingRestaurant, setIsCreatingRestaurant] = useState(false);
-  const { data: restaurants, isPending } = useFetchRestaurantsQuery();
+  const { data: restaurantsData, isPending } = useFetchRestaurantsQuery();
   if (isPending) {
     return <div>Loading.....</div>;
   }
@@ -47,7 +47,7 @@ const RestaurantPage = () => {
             </tr>
           </thead>
           <tbody>
-            {restaurants?.map((restaurantData: Restaurant) => (
+            {restaurantsData?.data?.map((restaurantData: Restaurant) => (
               <tr key={restaurantData.id}>
                 <td className="text-left border w-1/4 px-7">
                   {restaurantData.id}

@@ -54,7 +54,7 @@ const getNavs = (role: string) => {
     const menus = [...baseNav];
     menus.splice(1, 0, {
       name: "Users",
-      url: "users",
+      url: "users?page=1&items=5",
       icon: <FaUsers />,
     });
     menus.splice(2, 0, {

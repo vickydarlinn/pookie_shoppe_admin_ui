@@ -6,18 +6,19 @@ import Header from "../../components/header";
 const Dashboard = () => {
   const location = useLocation();
   const { user } = useAuthStore();
+
   if (user === null) {
+    // Properly encode the redirect path to preserve query parameters
+    const redirectPath = encodeURIComponent(`${location.pathname}`);
+
     return (
-      <Navigate
-        to={`/auth/login?redirect=${location.pathname}`}
-        replace={true}
-      />
+      <Navigate to={`/auth/login?redirect=${redirectPath}`} replace={true} />
     );
   }
+
   return (
     <main className="flex">
       <SideBar />
-
       <div className="grow">
         <Header />
         <Outlet />
