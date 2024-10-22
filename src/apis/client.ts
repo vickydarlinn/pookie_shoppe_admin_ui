@@ -6,6 +6,7 @@ import axios, {
   AxiosRequestConfig,
   AxiosResponse,
 } from "axios";
+import { useAuthStore } from "../store";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_API_URL,
@@ -15,6 +16,16 @@ const axiosInstance = axios.create({
     Accept: "application/json",
   },
 });
+
+const refreshToken = async () => {
+  await axios.post(
+    `${import.meta.env.VITE_BACKEND_API_URL}/auth/refresh`,
+    {},
+    {
+      withCredentials: true,
+    }
+  );
+};
 
 const requestInterceptor = (request: any) => {
   return request;
@@ -29,9 +40,36 @@ const responseInterceptor = (response: AxiosResponse) => {
   return response;
 };
 
-const responseErrorInterceptor = (error: AxiosError) => {
-  // console.log(error);
-  throw error;
+// Response error interceptor with TypeScript fixes
+const responseErrorInterceptor = async (error: AxiosError) => {
+  const originalRequest = error.config as AxiosRequestConfig & {
+    _isRetry?: boolean;
+  };
+
+  // Check if the error is due to an unauthorized status (401)
+  if (
+    error.response &&
+    error.response.status === 401 &&
+    !originalRequest._isRetry
+  ) {
+    originalRequest._isRetry = true;
+
+    try {
+      // Attempt to refresh the token
+      await refreshToken();
+
+      // Resend the original request with the new token
+      return axiosInstance(originalRequest);
+    } catch (err) {
+      // Log the error and log the user out
+      console.error("Token refresh error", err);
+      useAuthStore.getState().logout();
+      return Promise.reject(err);
+    }
+  }
+
+  // If the error is not related to 401 or cannot be handled, reject the promise
+  return Promise.reject(error);
 };
 
 axiosInstance.interceptors.request.use(
