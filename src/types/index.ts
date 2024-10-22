@@ -47,3 +47,8 @@ export interface UserQueryParams {
   q?: string;
   role?: string;
 }
+export interface RestaurantQueryParams {
+  items?: number;
+  page?: number;
+  q?: string;
+}

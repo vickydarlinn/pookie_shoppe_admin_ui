@@ -60,7 +60,7 @@ const getNavs = (role: string) => {
     });
     menus.splice(2, 0, {
       name: "Restaurants",
-      url: "restaurants",
+      url: `restaurants?page=${Params.DEFAULT_PAGE}`,
       icon: <FaHotel />,
     });
 

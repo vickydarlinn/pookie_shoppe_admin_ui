@@ -1,22 +1,23 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { useCreateRestaurantMutation } from "../../../hooks/useCreateRestaurantMutate";
-import { CreateRestaurant } from "../../../types";
+import { CreateRestaurant, Restaurant } from "../../../types";
+import { useUpdateRestaurantMutation } from "../../../hooks/useUpdateRestaurantMutate";
 
-interface CreateUserTableInt {
+interface UpdateUserTableInt {
   onClose: () => void;
+  existedData: Restaurant;
 }
 
-const CreateRestaurantForm = ({ onClose }: CreateUserTableInt) => {
+const EditRestaurantForm = ({ onClose, existedData }: UpdateUserTableInt) => {
   const {
-    mutate: CreateRestaurantMutate,
+    mutate: updateRestaurantMutate,
     isError,
     isPending,
     error: err,
-  } = useCreateRestaurantMutation();
+  } = useUpdateRestaurantMutation();
 
   const [restaurantData, setRestaurantData] = useState<CreateRestaurant>({
-    name: "",
-    address: "",
+    name: existedData.name,
+    address: existedData.address,
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +29,7 @@ const CreateRestaurantForm = ({ onClose }: CreateUserTableInt) => {
 
     setRestaurantData((prevData) => ({
       ...prevData,
-      [name]: name === "restaurant" ? { name: value } : value,
+      [name]: value,
     }));
   };
 
@@ -44,11 +45,14 @@ const CreateRestaurantForm = ({ onClose }: CreateUserTableInt) => {
     }
 
     setError(null);
-    CreateRestaurantMutate(restaurantData, {
-      onSuccess: () => {
-        onClose();
-      },
-    });
+    updateRestaurantMutate(
+      { id: "1", restaurantData },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
   };
 
   useEffect(() => {
@@ -61,7 +65,7 @@ const CreateRestaurantForm = ({ onClose }: CreateUserTableInt) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Create Restaurant</h1>
+      <h1>Update Restaurant</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       <div>
@@ -86,10 +90,10 @@ const CreateRestaurantForm = ({ onClose }: CreateUserTableInt) => {
       </div>
 
       <button type="submit" disabled={isPending}>
-        {isPending ? "Submitting..." : "Submit"}
+        {isPending ? "Updating..." : "Update"}
       </button>
     </form>
   );
 };
 
-export default CreateRestaurantForm;
+export default EditRestaurantForm;

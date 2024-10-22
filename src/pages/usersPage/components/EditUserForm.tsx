@@ -7,7 +7,7 @@ interface CreateUserTableInt {
   existedData: User;
 }
 
-const CreateUserForm = ({ onClose, existedData }: CreateUserTableInt) => {
+const EditUserForm = ({ onClose, existedData }: CreateUserTableInt) => {
   const [userData, setUserData] = useState<UpdateUser>({
     firstName: existedData.firstName,
     lastName: existedData.lastName,
@@ -99,4 +99,4 @@ const CreateUserForm = ({ onClose, existedData }: CreateUserTableInt) => {
   );
 };
 
-export default CreateUserForm;
+export default EditUserForm;

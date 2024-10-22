@@ -20,7 +20,7 @@ const UsersPage = () => {
   const [isEditingUser, setIsEditingUser] = useState<boolean>(false);
   const [role, setRole] = useState("");
   const [query, setQuery] = useState("");
-  const [existingUserData, setExistingUserData] = useState<User | undefined>();
+  const [existingUserData, setExistingUserData] = useState<User>();
 
   const { data: usersData, isPending } = useFetchUsersQuery({
     q: query,
@@ -50,7 +50,6 @@ const UsersPage = () => {
 
   const data = usersData.data?.map((user: User) => ({
     role: user.role,
-    id: user.id,
     key: user.id,
     email: user.email,
     fullName: `${user.firstName} ${user.lastName}`,
@@ -114,8 +113,8 @@ export default UsersPage;
 const columns = [
   {
     title: "ID",
-    key: "id",
-    dataIndex: "id",
+    key: "key",
+    dataIndex: "key",
   },
   {
     title: "Email",

@@ -37,7 +37,10 @@ const CreateUserForm = ({ onClose }: CreateUserTableInt) => {
     }));
   };
 
-  const { data: restaurantData } = useFetchRestaurantsQuery();
+  const { data: restaurantData } = useFetchRestaurantsQuery({
+    page: 1,
+    items: 50,
+  });
   // Validation before submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
