@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useLogoutMutation } from "../../hooks/useLogoutMutation";
 import { useAuthStore } from "../../store";
 import { User } from "../../types";
+import { Params } from "../../utils/constants";
 
 // const navs = ;
 
@@ -54,7 +55,7 @@ const getNavs = (role: string) => {
     const menus = [...baseNav];
     menus.splice(1, 0, {
       name: "Users",
-      url: "users?page=1&items=5",
+      url: `users?page=${Params.DEFAULT_PAGE}`,
       icon: <FaUsers />,
     });
     menus.splice(2, 0, {

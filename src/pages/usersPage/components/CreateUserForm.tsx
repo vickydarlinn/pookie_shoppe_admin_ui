@@ -1,8 +1,8 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { CreateUser, Restaurant } from "../../types";
-import { Roles } from "../../utils/constants";
-import { useCreateUserMutation } from "../../hooks/useCreateUserMutate";
-import { useFetchRestaurantsQuery } from "../../hooks/useFetchRestaurantsQuery";
+import { CreateUser, Restaurant } from "../../../types";
+import { Roles } from "../../../utils/constants";
+import { useCreateUserMutation } from "../../../hooks/useCreateUserMutate";
+import { useFetchRestaurantsQuery } from "../../../hooks/useFetchRestaurantsQuery";
 
 interface CreateUserTableInt {
   onClose: () => void;
@@ -15,7 +15,6 @@ const CreateUserForm = ({ onClose }: CreateUserTableInt) => {
     isPending,
     error: err,
   } = useCreateUserMutation();
-
   const [userData, setUserData] = useState<CreateUser>({
     firstName: "",
     lastName: "",

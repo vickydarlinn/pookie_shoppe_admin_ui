@@ -25,6 +25,10 @@ export interface CreateUser {
   password: string;
   restaurantId?: string;
 }
+export interface UpdateUser {
+  firstName: string;
+  lastName: string;
+}
 
 export interface AuthState {
   user: null | User;

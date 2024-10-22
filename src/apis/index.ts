@@ -2,6 +2,7 @@ import {
   CreateRestaurant,
   CreateUser,
   Credentials,
+  UpdateUser,
   UserQueryParams,
 } from "../types";
 import api from "./client";
@@ -31,3 +32,8 @@ export const getAllRestaurants = () => api.get("/restaurants");
 
 export const createNewRestaurant = (restaurantData: CreateRestaurant) =>
   api.post("/restaurants", restaurantData);
+
+export const deleteUser = (id: string) => api.delete(`/users/${id}`);
+
+export const updateUser = (id: string, userData: UpdateUser) =>
+  api.patch(`/users/${id}`, userData);
