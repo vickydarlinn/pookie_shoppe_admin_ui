@@ -6,6 +6,8 @@ import NonAuth from "./layouts/nonAuth";
 import Root from "./layouts/root";
 import UsersPage from "./pages/usersPage";
 import RestaurantPage from "./pages/restaurantPage";
+import CategoryPage from "./pages/categoryPage";
+import ProductPage from "./pages/productPage";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ export const router = createBrowserRouter([
           {
             path: "restaurants",
             element: <RestaurantPage />,
+          },
+          {
+            path: "categories",
+            element: <CategoryPage />,
+          },
+          {
+            path: "products",
+            element: <ProductPage />,
           },
         ],
       },

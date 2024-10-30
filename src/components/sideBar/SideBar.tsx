@@ -5,6 +5,7 @@ import { useLogoutMutation } from "../../hooks/useLogoutMutation";
 import { useAuthStore } from "../../store";
 import { User } from "../../types";
 import { Params } from "../../utils/constants";
+import { MdCategory } from "react-icons/md";
 
 // const navs = ;
 
@@ -43,7 +44,11 @@ const getNavs = (role: string) => {
       url: ".",
       icon: <IoHomeSharp />,
     },
-
+    {
+      name: "Categories",
+      url: "categories",
+      icon: <MdCategory />,
+    },
     {
       name: "Products",
       url: "products",

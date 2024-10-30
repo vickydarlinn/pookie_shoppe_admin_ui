@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <div className="flex items-center justify-between border ">
       <div>
-        {user?.role === "admin" ? "You are a admin" : user?.tenant?.name}
+        {user?.role === "admin" ? "You are a admin" : user?.restaurant?.name}
       </div>
       <FaBell />
     </div>
