@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { CreateRestaurant, Restaurant } from "../../../types";
-import { useUpdateRestaurantMutation } from "../../../hooks/useUpdateRestaurantMutate";
+import { useUpdateRestaurantMutation } from "../../../hooks/restaurants/useUpdateRestaurantMutate";
 
 interface UpdateUserTableInt {
   onClose: () => void;

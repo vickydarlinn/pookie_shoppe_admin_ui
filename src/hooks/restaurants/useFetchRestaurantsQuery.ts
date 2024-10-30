@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllRestaurants } from "../apis";
-import { RestaurantQueryParams } from "../types";
+import { getAllRestaurants } from "../../apis";
+import { RestaurantQueryParams } from "../../types";
 
 export const useFetchRestaurantsQuery = ({
   page,

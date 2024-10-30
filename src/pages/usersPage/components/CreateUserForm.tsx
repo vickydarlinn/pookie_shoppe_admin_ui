@@ -1,8 +1,8 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { CreateUser, Restaurant } from "../../../types";
 import { Roles } from "../../../utils/constants";
-import { useCreateUserMutation } from "../../../hooks/useCreateUserMutate";
-import { useFetchRestaurantsQuery } from "../../../hooks/useFetchRestaurantsQuery";
+import { useCreateUserMutation } from "../../../hooks/users/useCreateUserMutate";
+import { useFetchRestaurantsQuery } from "../../../hooks/restaurants/useFetchRestaurantsQuery";
 
 interface CreateUserTableInt {
   onClose: () => void;

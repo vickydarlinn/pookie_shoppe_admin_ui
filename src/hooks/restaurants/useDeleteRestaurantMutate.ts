@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteRestaurant } from "../apis";
+import { deleteRestaurant } from "../../apis";
 
 export const useDeleteRestaurantMutate = () => {
   const queryClient = useQueryClient();

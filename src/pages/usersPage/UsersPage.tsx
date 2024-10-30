@@ -5,8 +5,8 @@ import Breadcrumb from "../../components/breadcrumb";
 import Drawer from "../../components/drawer";
 import Table from "../../components/table";
 
-import { useFetchUsersQuery } from "../../hooks/useFetchUsersQuery";
-import { useDeleteUserMutate } from "../../hooks/useDeleteUserMutate";
+import { useFetchUsersQuery } from "../../hooks/users/useFetchUsersQuery";
+import { useDeleteUserMutate } from "../../hooks/users/useDeleteUserMutate";
 
 import { User } from "../../types";
 import { Params, Roles } from "../../utils/constants";

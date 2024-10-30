@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { UpdateUser, User } from "../../../types";
-import { useUpdateUserMutation } from "../../../hooks/useUpdateUserMutate";
+import { useUpdateUserMutation } from "../../../hooks/users/useUpdateUserMutate";
 
 interface CreateUserTableInt {
   onClose: () => void;

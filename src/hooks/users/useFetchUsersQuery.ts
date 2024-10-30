@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllUsers } from "../apis";
-import { UserQueryParams } from "../types";
+import { getAllUsers } from "../../apis";
+import { UserQueryParams } from "../../types";
 
 export const useFetchUsersQuery = ({
   page,

@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { useCreateRestaurantMutation } from "../../../hooks/useCreateRestaurantMutate";
+import { useCreateRestaurantMutation } from "../../../hooks/restaurants/useCreateRestaurantMutate";
 import { CreateRestaurant } from "../../../types";
 
 interface CreateUserTableInt {

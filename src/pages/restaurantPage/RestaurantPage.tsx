@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { useFetchRestaurantsQuery } from "../../hooks/useFetchRestaurantsQuery";
-import { useDeleteRestaurantMutate } from "../../hooks/useDeleteRestaurantMutate";
+import { useFetchRestaurantsQuery } from "../../hooks/restaurants/useFetchRestaurantsQuery";
+import { useDeleteRestaurantMutate } from "../../hooks/restaurants/useDeleteRestaurantMutate";
 
 import CreateRestaurantForm from "./components/CreateRestaurantForm";
 import EditRestaurantForm from "./components/EditRestaurantForm";
