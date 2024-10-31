@@ -9,10 +9,10 @@ const Drawer = ({ isOpen, onClose, children }: DrawerProps) => {
       {isOpen && (
         <div
           onClick={onClose}
-          className="fixed z-50 left-0 top-0 w-screen h-screen bg-black/75"
+          className="fixed z-50 left-0 top-0 w-screen h-screen bg-black/75 "
         >
           <div
-            className="bg-gray-100 w-1/2 h-screen ml-auto"
+            className="bg-gray-100 w-1/2 h-screen ml-auto overflow-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {children}
