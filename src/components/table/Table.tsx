@@ -63,7 +63,7 @@ const Table = ({
           </tr>
         </thead>
         <tbody>
-          {dataSource.map((item: DataSource) => (
+          {dataSource?.map((item: DataSource) => (
             <tr key={item.key}>
               {columns.map((col) => (
                 <td key={col.key} className={`px-7 text-left`}>

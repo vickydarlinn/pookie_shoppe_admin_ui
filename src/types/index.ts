@@ -52,3 +52,35 @@ export interface RestaurantQueryParams {
   page?: number;
   q?: string;
 }
+export interface CategoriesQueryParams {
+  items?: number;
+  page?: number;
+}
+
+export interface PriceConfiguration {
+  [key: string]: {
+    priceType: "base" | "additional";
+    availableOptions: string[];
+  };
+}
+
+export interface Attribute {
+  name: string;
+  widgetType: "switch" | "radio";
+  defaultValue: string;
+  availableOptions: string[];
+}
+export interface Category {
+  _id: string;
+  name: string;
+  priceConfiguration: PriceConfiguration;
+  attributes: Attribute[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface CreateCategory {
+  name: string;
+  priceConfiguration: PriceConfiguration;
+  attributes: Attribute[];
+}
