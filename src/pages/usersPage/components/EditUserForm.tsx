@@ -1,6 +1,9 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { UpdateUser, User } from "../../../types";
 import { useUpdateUserMutation } from "../../../hooks/users/useUpdateUserMutate";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface CreateUserTableInt {
   onClose: () => void;
@@ -62,13 +65,13 @@ const EditUserForm = ({ onClose, existedData }: CreateUserTableInt) => {
   }, [isError, err]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Update User</h1>
+    <form onSubmit={handleSubmit} className="p-2 h-screen flex flex-col">
+      <h1 className="text-center font-bold py-3 text-lg">Update User</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <div>
-        <label>First Name</label>
-        <input
+      <div className="flex items-center  gap-4 my-3">
+        <Label className="text-nowrap  w-52">First Name:</Label>
+        <Input
           type="text"
           name="firstName"
           placeholder="First Name"
@@ -76,9 +79,9 @@ const EditUserForm = ({ onClose, existedData }: CreateUserTableInt) => {
           onChange={handleChange}
         />
       </div>
-      <div>
-        <label>Last Name</label>
-        <input
+      <div className="flex items-center gap-4 my-3">
+        <Label className="text-nowrap w-52">Last Name:</Label>
+        <Input
           type="text"
           name="lastName"
           placeholder="Last Name"
@@ -87,13 +90,17 @@ const EditUserForm = ({ onClose, existedData }: CreateUserTableInt) => {
         />
       </div>
 
-      <div className="mt-auto ">
-        <button type="button" onClick={onClose}>
+      <div className="mt-auto flex justify-end gap-3">
+        <Button
+          type="button"
+          onClick={onClose}
+          className=" text-background bg-foreground  w-1/4"
+        >
           Cancel
-        </button>
-        <button type="submit" disabled={isPending}>
+        </Button>
+        <Button type="submit" disabled={isPending} className="w-1/4">
           {isPending ? "Updaing..." : "Update"}
-        </button>
+        </Button>
       </div>
     </form>
   );

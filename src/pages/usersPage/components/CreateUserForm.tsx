@@ -85,7 +85,7 @@ const CreateUserForm = ({ onClose }: CreateUserTableInt) => {
   }, [isError, err]);
 
   return (
-    <form onSubmit={handleSubmit} className="p-2 flex flex-col h-screen   ">
+    <form onSubmit={handleSubmit} className="p-2 h-screen flex flex-col">
       <h1 className="text-center font-bold py-3 text-lg">Create User</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
