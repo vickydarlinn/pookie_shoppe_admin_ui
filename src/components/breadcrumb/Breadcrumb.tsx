@@ -1,33 +1,47 @@
-// import { FaGreaterThan } from "react-icons/fa";
-import { FaGreaterThan } from "react-icons/fa6";
+import { useLocation } from "react-router-dom";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Fragment } from "react/jsx-runtime";
 
-import { Link, useLocation } from "react-router-dom";
-
-const Breadcrumb = () => {
+const BreadcrumbC = () => {
   const { pathname } = useLocation();
-
-  // Split the pathname and filter out empty strings caused by the leading "/"
-  const pathnames = pathname.split("/").filter((x) => x);
-
+  const pathNames = pathname.split("/").filter((x) => x);
   return (
-    <nav className="flex gap-1 border items-center">
-      <Link to="/">Dashboard</Link>
-      {pathnames.map((name, index) => {
-        const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
-
-        return (
-          <div key={name} className="flex items-center">
-            <span className="">
-              <FaGreaterThan />
-            </span>
-            <Link to={routeTo} className="capitalize">
-              {name}
-            </Link>
-          </div>
-        );
-      })}
-    </nav>
+    <Breadcrumb className=" py-2">
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink to="/">Dashboard</BreadcrumbLink>
+        </BreadcrumbItem>
+        {pathNames.map((path, i) => {
+          if (i < pathNames.length - 1) {
+            return (
+              <Fragment key={`${i}-${path}`}>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink to={path}>{path}</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </Fragment>
+            );
+          }
+          return (
+            <Fragment key={`${i}-${path}`}>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{path}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </Fragment>
+          );
+        })}
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 };
 
-export default Breadcrumb;
+export default BreadcrumbC;

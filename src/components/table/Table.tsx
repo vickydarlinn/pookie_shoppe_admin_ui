@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Button } from "../ui/button";
 
 const Table = ({
   columns,
@@ -51,20 +52,20 @@ const Table = ({
 
   return (
     <>
-      <table className="w-full border table">
-        <thead className="border">
-          <tr>
+      <table className="w-full border border-secondary table mt-4 text-sm">
+        <thead className="border border-secondary py-1">
+          <tr className=" py-1">
             {columns.map((col) => (
-              <th key={col.key} className={`px-7 text-left`}>
+              <th key={col.key} className={`px-7 py-2 text-left `}>
                 {col.title}
               </th>
             ))}
-            <th className="px-7 text-center">Actions</th>
+            <th className="px-7 text-center  ">Actions</th>
           </tr>
         </thead>
         <tbody>
           {dataSource?.map((item: DataSource) => (
-            <tr key={item.key}>
+            <tr key={item.key} className="border border-secondary">
               {columns.map((col) => (
                 <td key={col.key} className={`px-7 text-left`}>
                   {item[col.dataIndex]}
@@ -72,10 +73,20 @@ const Table = ({
               ))}
               <td className="flex gap-1  justify-around text-center">
                 {" "}
-                <button onClick={() => onEdit(String(item.key))}>Edit</button>
-                <button onClick={() => onDelete(String(item.key))}>
+                <Button
+                  variant={"link"}
+                  className="text-foreground"
+                  onClick={() => onEdit(String(item.key))}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant={"link"}
+                  className="text-foreground "
+                  onClick={() => onDelete(String(item.key))}
+                >
                   Delete
-                </button>
+                </Button>
               </td>
             </tr>
           ))}
@@ -83,28 +94,24 @@ const Table = ({
       </table>
 
       {/* Pagination Controls */}
-      <div className="flex gap-2 justify-end px-5 py-3">
-        <button
+      <div className="flex gap-2 justify-end items-center px-5 py-3">
+        <Button
+          variant={"outline"}
           onClick={handlePrev}
           disabled={currentPage === 1}
-          className={`px-3 py-1 border ${
-            currentPage === 1 ? "opacity-50" : ""
-          }`}
         >
           Prev
-        </button>
-        <span>
+        </Button>
+        <span className="text-sm">
           {currentPage} / {totalPages}
         </span>
-        <button
+        <Button
+          variant={"outline"}
           onClick={handleNext}
           disabled={currentPage === totalPages}
-          className={`px-3 py-1 border ${
-            currentPage === totalPages ? "opacity-50" : ""
-          }`}
         >
           Next
-        </button>
+        </Button>
       </div>
     </>
   );

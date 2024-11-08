@@ -47,11 +47,11 @@ const LoginPage = () => {
         <button
           type="submit"
           disabled={isPending}
-          className="bg-blue-500 text-white py-2 mt-2"
+          className="bg-blue-500 text-background py-2 mt-2"
         >
           {isPending ? "Logging in..." : "Login"}
         </button>
-        {isError && <p className="text-red-500">{error.message}</p>}
+        {isError && <p className="text-destructive">{error.message}</p>}
       </form>
     </main>
   );

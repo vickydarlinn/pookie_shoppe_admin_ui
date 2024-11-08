@@ -12,6 +12,8 @@ import Drawer from "../../components/drawer";
 import { Restaurant } from "../../types";
 import { Params } from "../../utils/constants";
 import { useSearchParams } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const RestaurantPage = () => {
   const [searchParams] = useSearchParams();
@@ -74,18 +76,17 @@ const RestaurantPage = () => {
         )}
       </Drawer>
       <Breadcrumb />
-      <div className="flex justify-between">
-        <h2>Orders</h2>
-        <input
+      <div className="flex justify-between gap-3">
+        <Input
           type="text"
-          className="border"
           placeholder="Search Restaurant"
+          className="w-1/4"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button onClick={() => setIsCreatingRestaurant(true)}>
+        <Button onClick={() => setIsCreatingRestaurant(true)}>
           + Create Restaurant
-        </button>
+        </Button>
       </div>
       <Table
         total={restaurantsData.total}

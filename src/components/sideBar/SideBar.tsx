@@ -6,8 +6,7 @@ import { useAuthStore } from "../../store";
 import { User } from "../../types";
 import { Params } from "../../utils/constants";
 import { MdCategory } from "react-icons/md";
-
-// const navs = ;
+import { Button } from "../ui/button";
 
 const SideBar = () => {
   const { mutate: logoutMutate } = useLogoutMutation();
@@ -18,21 +17,35 @@ const SideBar = () => {
 
   const navs = getNavs((user as User).role);
   return (
-    <nav className="min-w-40 h-screen border flex flex-col ">
-      <div>Logo</div>
+    <nav className="min-w-44 h-screen  p-1 flex flex-col bg-sidebar text-sidebar-foreground">
+      <div className="p-2 font-bold text-lg text-primary text-center">
+        Pookie Shoppie
+      </div>
 
-      <div className="mt-10">
+      <div className="mt-10 px-1 space-y-2">
         {navs?.map((nav) => (
-          <div key={nav.url} className="flex gap-1 border items-center p-1">
+          <NavLink
+            className={({ isActive }) =>
+              `flex gap-2 items-center p-1 px-2 rounded-md ${
+                isActive ? "bg-background text-foreground" : ""
+              }`
+            }
+            key={nav.url}
+            to={nav.url}
+          >
             {nav.icon}
-            <NavLink to={nav.url}>{nav.name}</NavLink>
-          </div>
+
+            {nav.name}
+          </NavLink>
         ))}
       </div>
 
-      <div onClick={handleLogout} className="mt-auto cursor-pointer">
+      <Button
+        onClick={handleLogout}
+        className="mt-auto bg-primary text-primary-foreground  "
+      >
         Logout
-      </div>
+      </Button>
     </nav>
   );
 };

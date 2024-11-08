@@ -19,7 +19,7 @@ const Dashboard = () => {
   return (
     <main className="flex">
       <SideBar />
-      <div className="grow">
+      <div className="grow p-3 overflow-hidden rounded-md">
         <Header />
         <Outlet />
       </div>

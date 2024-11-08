@@ -11,6 +11,7 @@ import Drawer from "../../components/drawer";
 import CreateCategoryForm from "./components/CreateCategoryForm";
 import EditCategoryForm from "./components/EditCategoryForm";
 import { useDeleteCategoryMutate } from "../../hooks/categories/useDeleteCategoryMutate";
+import { Button } from "@/components/ui/button";
 
 const CategoryPage = () => {
   const [searchParams] = useSearchParams();
@@ -73,11 +74,10 @@ const CategoryPage = () => {
         )}
       </Drawer>
       <Breadcrumb />
-      <div className="flex justify-between">
-        <div></div>
-        <button onClick={() => setIsCreatingNewCategory(true)}>
+      <div className="flex justify-end">
+        <Button onClick={() => setIsCreatingNewCategory(true)}>
           + Create Category
-        </button>
+        </Button>
       </div>
       <Table
         total={categoriesData?.total}

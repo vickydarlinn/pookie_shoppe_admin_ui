@@ -1,10 +1,16 @@
 import { Outlet } from "react-router-dom";
 import { useSelfQuery } from "../../hooks/userSelfQuery";
-import { useAuthStore } from "../../store";
+import { useAuthStore, useThemeStore } from "../../store";
 import { useEffect } from "react";
 
 const Root = () => {
   const { setUser } = useAuthStore();
+  const { theme } = useThemeStore(); // Access theme from the store
+
+  // Optional: useEffect to respond to theme changes (if needed)
+  useEffect(() => {
+    // This is handled by the store's DOM update function
+  }, [theme]);
 
   const { data, isLoading } = useSelfQuery();
   useEffect(() => {

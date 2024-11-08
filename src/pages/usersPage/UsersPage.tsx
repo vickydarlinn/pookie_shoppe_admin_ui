@@ -13,6 +13,15 @@ import { Params, Roles } from "../../utils/constants";
 
 import EditUserForm from "./components/EditUserForm";
 import CreateUserForm from "./components/CreateUserForm";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const UsersPage = () => {
   const [searchParams] = useSearchParams();
@@ -72,28 +81,32 @@ const UsersPage = () => {
       </Drawer>
       <Breadcrumb />
       <div className="flex justify-between">
-        <div>
-          <input
+        <div className=" flex gap-3">
+          <Input
             type="text"
-            className="border p-2"
             placeholder="Search by email"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <select
-            className="border p-2"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value="">Select Role</option>
-            <option value={Roles.ADMIN}>{Roles.ADMIN}</option>
-            <option value={Roles.MANAGER}>{Roles.MANAGER}</option>
-            <option value={Roles.CUSTOMER}>{Roles.CUSTOMER}</option>
-          </select>
+
+          <Select onValueChange={(val) => setRole(val)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select Role" />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.entries(Roles).map(([key, value]) => {
+                return (
+                  <SelectItem key={key} value={value} className="capitalize">
+                    {value}
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
         </div>
-        <button onClick={() => setIsCreatingNewUser(true)}>
+        <Button onClick={() => setIsCreatingNewUser(true)}>
           + Create User
-        </button>
+        </Button>
       </div>
       <Table
         total={usersData.total}
