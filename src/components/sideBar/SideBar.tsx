@@ -18,7 +18,7 @@ const SideBar = () => {
   const navs = getNavs((user as User).role);
   return (
     <nav className="min-w-44 h-screen  p-1 flex flex-col bg-sidebar text-sidebar-foreground">
-      <div className="p-2 font-bold text-lg text-primary text-center">
+      <div className="p-2 font-bold text-lg text-sidebar-primary text-center">
         Pookie Shoppie
       </div>
 
@@ -42,7 +42,7 @@ const SideBar = () => {
 
       <Button
         onClick={handleLogout}
-        className="mt-auto bg-primary text-primary-foreground  "
+        className="mt-auto bg-sidebar-primary text-sidebar-primary-foreground  "
       >
         Logout
       </Button>
