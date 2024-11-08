@@ -25,7 +25,7 @@ import {
 
 const UsersPage = () => {
   const [searchParams] = useSearchParams();
-  const [isCreatingNewUser, setIsCreatingNewUser] = useState<boolean>(false);
+  const [isCreatingNewUser, setIsCreatingNewUser] = useState<boolean>(true);
   const [isEditingUser, setIsEditingUser] = useState<boolean>(false);
   const [role, setRole] = useState("");
   const [query, setQuery] = useState("");

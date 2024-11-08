@@ -3,6 +3,16 @@ import { CreateUser, Restaurant } from "../../../types";
 import { Roles } from "../../../utils/constants";
 import { useCreateUserMutation } from "../../../hooks/users/useCreateUserMutate";
 import { useFetchRestaurantsQuery } from "../../../hooks/restaurants/useFetchRestaurantsQuery";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 interface CreateUserTableInt {
   onClose: () => void;
@@ -75,13 +85,13 @@ const CreateUserForm = ({ onClose }: CreateUserTableInt) => {
   }, [isError, err]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Create User</h1>
+    <form onSubmit={handleSubmit} className="p-2 flex flex-col h-screen   ">
+      <h1 className="text-center font-bold py-3 text-lg">Create User</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <div>
-        <label>First Name</label>
-        <input
+      <div className="flex items-center  gap-4 my-3">
+        <Label className="text-nowrap  w-52">First Name:</Label>
+        <Input
           type="text"
           name="firstName"
           placeholder="First Name"
@@ -89,29 +99,31 @@ const CreateUserForm = ({ onClose }: CreateUserTableInt) => {
           onChange={handleChange}
         />
       </div>
-      <div>
-        <label>Last Name</label>
-        <input
+      <div className="flex items-center gap-4 my-3">
+        <Label className="text-nowrap w-52">Last Name:</Label>
+        <Input
           type="text"
           name="lastName"
           placeholder="Last Name"
           value={userData.lastName}
           onChange={handleChange}
+          className=""
         />
       </div>
-      <div>
-        <label>Email</label>
-        <input
+      <div className="flex items-center gap-4 my-3">
+        <Label className="text-nowrap w-52">Email:</Label>
+        <Input
           type="email"
           name="email"
           placeholder="Email"
           value={userData.email}
           onChange={handleChange}
+          className=""
         />
       </div>
-      <div>
-        <label>Password</label>
-        <input
+      <div className="flex items-center gap-4 my-3">
+        <Label className="text-nowrap w-52">Password:</Label>
+        <Input
           type="password"
           name="password"
           placeholder="Password"
@@ -119,36 +131,72 @@ const CreateUserForm = ({ onClose }: CreateUserTableInt) => {
           onChange={handleChange}
         />
       </div>
-      <div>
-        <label>Role</label>
-        <select name="role" value={userData.role} onChange={handleChange}>
-          <option value="">Select Role</option>
-          <option value={Roles.CUSTOMER}>{Roles.CUSTOMER}</option>
-          <option value={Roles.MANAGER}>{Roles.MANAGER}</option>
-          <option value={Roles.ADMIN}>{Roles.ADMIN}</option>
-        </select>
+      <div className="flex items-center gap-4 my-3">
+        <Label className="text-nowrap w-52">Role</Label>
+
+        <Select
+          onValueChange={(value) =>
+            handleChange({
+              target: {
+                name: "role",
+                value,
+              },
+            } as ChangeEvent<HTMLInputElement>)
+          }
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Select Role" />
+          </SelectTrigger>
+          <SelectContent>
+            {Object.entries(Roles).map(([key, value]) => {
+              return (
+                <SelectItem key={key} value={value} className="capitalize">
+                  {value}
+                </SelectItem>
+              );
+            })}
+          </SelectContent>
+        </Select>
       </div>
       {userData.role === Roles.MANAGER && (
-        <select
-          name="restaurantId"
-          value={userData.restaurantId ?? undefined}
-          onChange={handleChange}
-        >
-          <option value="">Select Restaurant</option>
-          {restaurantData?.data?.map((restaurant: Restaurant) => (
-            <option key={restaurant.id} value={restaurant.id}>
-              {restaurant.name}
-            </option>
-          ))}
-        </select>
+        <div className="flex items-center gap-4 my-3">
+          <Label className="text-nowrap w-52">Restaurant</Label>
+          <Select
+            onValueChange={(value) =>
+              handleChange({
+                target: {
+                  name: "restaurantId",
+                  value,
+                },
+              } as ChangeEvent<HTMLInputElement>)
+            }
+            value={userData.restaurantId ?? ""}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select Restaurant" />
+            </SelectTrigger>
+            <SelectContent>
+              {restaurantData?.data?.map((restaurant: Restaurant) => (
+                <SelectItem key={restaurant.id} value={String(restaurant.id)}>
+                  {restaurant.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       )}
-      <div className="mt-auto ">
-        <button type="button" onClick={onClose}>
+
+      <div className=" mt-auto flex justify-end gap-3  ">
+        <Button
+          type="button"
+          onClick={onClose}
+          className=" text-background bg-foreground  w-1/4"
+        >
           Cancel
-        </button>
-        <button type="submit" disabled={isPending}>
+        </Button>
+        <Button type="submit" disabled={isPending} className="w-1/4">
           {isPending ? "Submitting..." : "Submit"}
-        </button>
+        </Button>
       </div>
     </form>
   );
