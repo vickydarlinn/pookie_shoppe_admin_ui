@@ -1,6 +1,9 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { CreateRestaurant, Restaurant } from "../../../types";
 import { useUpdateRestaurantMutation } from "../../../hooks/restaurants/useUpdateRestaurantMutate";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface UpdateUserTableInt {
   onClose: () => void;
@@ -46,7 +49,7 @@ const EditRestaurantForm = ({ onClose, existedData }: UpdateUserTableInt) => {
 
     setError(null);
     updateRestaurantMutate(
-      { id: "1", restaurantData },
+      { id: String(existedData.id), restaurantData },
       {
         onSuccess: () => {
           onClose();
@@ -64,13 +67,13 @@ const EditRestaurantForm = ({ onClose, existedData }: UpdateUserTableInt) => {
   }, [isError, err]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Update Restaurant</h1>
+    <form onSubmit={handleSubmit} className="p-2 h-screen flex flex-col">
+      <h1 className="text-center font-bold py-3 text-lg">Update Restaurant</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <div>
-        <label> Name</label>
-        <input
+      <div className="flex items-center gap-4 my-3">
+        <Label className="text-nowrap w-52">Restaurant Name</Label>
+        <Input
           type="text"
           name="name"
           placeholder="Restaurant Name"
@@ -78,9 +81,9 @@ const EditRestaurantForm = ({ onClose, existedData }: UpdateUserTableInt) => {
           onChange={handleChange}
         />
       </div>
-      <div>
-        <label>Last Name</label>
-        <input
+      <div className="flex items-center gap-4 my-3">
+        <Label className="text-nowrap w-52">Address</Label>
+        <Input
           type="text"
           name="address"
           placeholder="Address"
@@ -89,9 +92,18 @@ const EditRestaurantForm = ({ onClose, existedData }: UpdateUserTableInt) => {
         />
       </div>
 
-      <button type="submit" disabled={isPending}>
-        {isPending ? "Updating..." : "Update"}
-      </button>
+      <div className=" mt-auto flex justify-end gap-3  ">
+        <Button
+          type="button"
+          onClick={onClose}
+          className=" text-background bg-foreground  w-1/4"
+        >
+          Cancel
+        </Button>
+        <Button type="submit" disabled={isPending} className="w-1/4">
+          {isPending ? "Submitting..." : "Submit"}
+        </Button>
+      </div>
     </form>
   );
 };

@@ -67,7 +67,7 @@ export interface PriceConfiguration {
 export interface Attribute {
   name: string;
   widgetType: "switch" | "radio";
-  defaultValue: string;
+  defaultValue: string | null;
   availableOptions: string[];
 }
 export interface Category {

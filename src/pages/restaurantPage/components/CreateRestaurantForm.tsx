@@ -1,6 +1,9 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useCreateRestaurantMutation } from "../../../hooks/restaurants/useCreateRestaurantMutate";
 import { CreateRestaurant } from "../../../types";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface CreateUserTableInt {
   onClose: () => void;
@@ -60,13 +63,13 @@ const CreateRestaurantForm = ({ onClose }: CreateUserTableInt) => {
   }, [isError, err]);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Create Restaurant</h1>
+    <form onSubmit={handleSubmit} className="p-2 h-screen flex flex-col">
+      <h1 className="text-center font-bold py-3 text-lg">Create Restaurant</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <div>
-        <label> Name</label>
-        <input
+      <div className="flex items-center  gap-4 my-3">
+        <Label className="text-nowrap  w-52">Restaurant Name</Label>
+        <Input
           type="text"
           name="name"
           placeholder="Restaurant Name"
@@ -74,9 +77,9 @@ const CreateRestaurantForm = ({ onClose }: CreateUserTableInt) => {
           onChange={handleChange}
         />
       </div>
-      <div>
-        <label>Last Name</label>
-        <input
+      <div className="flex items-center  gap-4 my-3">
+        <Label className="text-nowrap  w-52">Address</Label>
+        <Input
           type="text"
           name="address"
           placeholder="Address"
@@ -85,9 +88,18 @@ const CreateRestaurantForm = ({ onClose }: CreateUserTableInt) => {
         />
       </div>
 
-      <button type="submit" disabled={isPending}>
-        {isPending ? "Submitting..." : "Submit"}
-      </button>
+      <div className=" mt-auto flex justify-end gap-3  ">
+        <Button
+          type="button"
+          onClick={onClose}
+          className=" text-background bg-foreground  w-1/4"
+        >
+          Cancel
+        </Button>
+        <Button type="submit" disabled={isPending} className="w-1/4">
+          {isPending ? "Submitting..." : "Submit"}
+        </Button>
+      </div>
     </form>
   );
 };
