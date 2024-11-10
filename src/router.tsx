@@ -8,6 +8,7 @@ import UsersPage from "./pages/usersPage";
 import RestaurantPage from "./pages/restaurantPage";
 import CategoryPage from "./pages/categoryPage";
 import ProductPage from "./pages/productPage";
+import AdminAccess from "./layouts/adminAccess";
 
 export const router = createBrowserRouter([
   {
@@ -20,19 +21,25 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "",
+            element: <AdminAccess />,
+            children: [
+              {
+                path: "users",
+                element: <UsersPage />,
+              },
+              {
+                path: "categories",
+                element: <CategoryPage />,
+              },
+              {
+                path: "restaurants",
+                element: <RestaurantPage />,
+              },
+            ],
+          },
+          {
+            path: "",
             element: <HomePage />,
-          },
-          {
-            path: "users",
-            element: <UsersPage />,
-          },
-          {
-            path: "restaurants",
-            element: <RestaurantPage />,
-          },
-          {
-            path: "categories",
-            element: <CategoryPage />,
           },
           {
             path: "products",

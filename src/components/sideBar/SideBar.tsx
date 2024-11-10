@@ -58,11 +58,6 @@ const getNavs = (role: string) => {
       icon: <IoHomeSharp />,
     },
     {
-      name: "Categories",
-      url: "categories",
-      icon: <MdCategory />,
-    },
-    {
       name: "Products",
       url: "products",
       icon: <IoRestaurant />,
@@ -81,7 +76,11 @@ const getNavs = (role: string) => {
       url: `restaurants?page=${Params.DEFAULT_PAGE}`,
       icon: <FaHotel />,
     });
-
+    menus.splice(3, 0, {
+      name: "Categories",
+      url: "categories",
+      icon: <MdCategory />,
+    });
     return menus;
   }
 

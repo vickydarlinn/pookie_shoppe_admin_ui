@@ -15,7 +15,7 @@ const Header = () => {
   const { setTheme } = useThemeStore();
   return (
     <div className="flex items-center justify-between  ">
-      <div>
+      <div className="border border-border px-5 py-1 rounded-xl">
         {user?.role === "admin" ? "You are the admin" : user?.restaurant?.name}
       </div>
       <div className="flex items-center gap-3">
